@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<!--
+        <Kafka name="Kafka" topic="test-kafka-elk">
+            <Property name="bootstrap.servers">localhost:9092</Property>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %p [%c:%t] [correlationId:%X{correlationId}] [service:%X{service}] [category:%X{category}] [initrator:%X{initrator}] [mfstid:%X{mfstid}] %m%n"/>
+        </Kafka>
+        -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MMM-dd HH:mm:ss a} %-5level %logger{36} - %msg%n" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="./logs/wmt-spring-memcached-sys.log" filePattern="./logs/wmt-spring-memcached-sys-%i.log">
+			<PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} %-5level %logger{36} - %msg%n" />
+			<SizeBasedTriggeringPolicy size="10 MB" />
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<AsyncLogger name="org.springframework" level="debug" additivity="false">
+			<AppenderRef ref="Console" />
+			<!-- <AppenderRef ref="RollingFile" />  -->	
+		</AsyncLogger>
+		<AsyncLogger name="com.mutu.spring.rest" level="debug" additivity="false">
+			<AppenderRef ref="Console" />
+			<!-- <AppenderRef ref="Kafka" />  -->
+			<!-- <AppenderRef ref="RollingFile" />  -->
+		</AsyncLogger>
+		<AsyncRoot level="debug">
+			<AppenderRef ref="Console" />	
+			<!-- <AppenderRef ref="RollingFile"/>  -->
+		</AsyncRoot>
+	</Loggers>
+</Configuration>

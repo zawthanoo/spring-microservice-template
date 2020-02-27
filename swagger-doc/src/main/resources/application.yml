@@ -1,0 +1,23 @@
+---
+info:
+  component: Default Single Swagger Document Server for MicroService
+spring:
+  application:
+    name: single-swagger-documentation-server
+  profiles: default
+
+server:
+  port: 9092
+
+documentation: 
+  baseurl: http://localhost
+  swagger: 
+    services:   
+      - 
+        name: employee-app
+        url: http://localhost:8081/employee/v2/api-docs
+        version: 2.0
+      - 
+        name: person-app
+        url: http://localhost:8082/person/v2/api-docs
+        version: 2.0        

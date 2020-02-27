@@ -1,0 +1,26 @@
+server:
+  port: 8081
+  servlet:
+    contextPath: /employee
+spring:
+  application:
+    name: employee-app      
+  boot:
+      admin:
+        client:
+          url: http://localhost:9090/
+          instance:
+            service-base-url: http://localhost:${server.port}/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true

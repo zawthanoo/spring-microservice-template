@@ -1,0 +1,59 @@
+server:
+  port: 9091
+spring:
+  boot:
+      admin:
+        client:
+          url: http://localhost:9090/
+  application:
+    name: spring-zull-ratelimit      
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    health:
+      show-details: always
+
+#micro-service-list
+employee-app:
+  host: localhost
+  port: 8081
+  basepath: employee
+person-app:
+  host: localhost
+  port: 8082
+  basepath: person
+
+#rete limit policy
+zuul:
+  routes:
+    employee-health-check:
+      url: http://${employee-app.host}:${employee-app.port}
+      path: /${employee-app.basepath}/health-check
+    employee-api:
+      url: http://${employee-app.host}:${employee-app.port}
+      path: /${employee-app.basepath}/**
+      stripPrefix: false
+    person-api:
+      url: http://${person-app.host}:${person-app.port}
+      path: /${person-app.basepath}/health-check
+    promotion:
+      url: https://api.wavemoney.io:8100
+      path: /v2/mfs-customer/promotions
+  ratelimit:
+    enabled: true
+    repository: redis
+    policy-list:
+      employee-health-check:
+        - limit: 1
+          refresh-interval: 3
+          type:
+            - origin
+      promotion:
+        - limit: 1
+          refresh-interval: 5
+          type:
+            - origin
+  strip-prefix: true      
