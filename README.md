@@ -1,10 +1,9 @@
 # Building microservices with spring-boot
----
 
 ![spring-microservices](/spring-microservices.png)
 
 ## SpringBootAdmin
----
+
 Managing and monitoring Spring Boot applications. Each client application have to registers to the admin server.
 
 ### Admin Server Setup
@@ -68,7 +67,7 @@ management:
 ```
 
 ## Swagger Doc
----
+
 `swagger-doc` is a spring-boot application to centralized the documentation server. Original Soruce [microservice-patterns](https://github.com/hellosatish/microservice-patterns/tree/master/centralized-swagger-docs).
 
 ### Configuration:
@@ -91,7 +90,6 @@ documentation:
 ```
 
 ## Netflix Zuul
----
 
 Rate limiting is used to control the amount of incoming and outgoing traffic to or from a network. 
 [Spring Cloud Netflix Zull](https://github.com/spring-cloud/spring-cloud-netflix) is an open source gateway for spring-boot aplication. `Redis` is used as a datastorage.
@@ -150,10 +148,3 @@ zuul:
 ```
 
 According to above configuration, you can access `employee/health-check` url only one time within three seconds. If you acess two or more time within three seconds, you will get error response like `too many request...`.
-
-
-
-
-
-
-
